@@ -115,7 +115,7 @@ public class NoPawAloneClient {
                     case 2:
                         /*Trovato cane con microchip*/
                         System.out.println("Enter the microchip of the dog found:");
-                        int mic = user_scanner.nextInt();
+                        String mic = user_scanner.next();
                         msg_to_send = "FOUND_MICROCHIP" + " " + mic;
                         System.out.println("DEBUG: Sending " + msg_to_send);
                         pw.println(msg_to_send);

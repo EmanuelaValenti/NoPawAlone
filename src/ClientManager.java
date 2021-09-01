@@ -179,8 +179,6 @@ public class ClientManager implements Runnable{
                 pw.println("BEGIN");
                 pw.flush();
 
-                System.out.println("Sto scriv 1"+LostDogRegister);
-
                 ArrayList<Dog> lostDog;
                 lostDog = LostDogRegister.getLostCopy();
                 for (Dog d: lostDog){
@@ -189,8 +187,6 @@ public class ClientManager implements Runnable{
                 }
                 pw.println("END");
                 pw.flush();
-
-                System.out.println("Sto scriv 2"+LostDogRegister);
             }
 
             else if(cmd.equals("STAMP_STRAY")){
