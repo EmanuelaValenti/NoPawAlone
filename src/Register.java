@@ -20,21 +20,18 @@ public class Register implements Serializable {
 
 
     public synchronized void addNewDog (Dog d){
-        int i = 1;
+        last_modification = new Date().toString();
         NationalDogRegister.add(d);
-        saveRegister(NationalDogRegister, i);
     }
 
     public synchronized void addLostDog(Dog d){
-        int i = 2;
+        last_modification = new Date().toString();
         LostDogRegister.add(d);
-        saveRegister(LostDogRegister, i);
     }
 
     public synchronized void addStrayDog(Dog d){
-        int i = 3;
+        last_modification = new Date().toString();
         StrayDogRegister.add(d);
-        saveRegister(StrayDogRegister, i);
     }
 
 
@@ -52,41 +49,41 @@ public class Register implements Serializable {
 
 
     public synchronized  String remove(String micro, int i) {
-        int tipo = i;
-        if (tipo == 1) {
+        String canc = null;
+        if (i == 1) {
+            last_modification = new Date().toString();
             for (Dog d : NationalDogRegister) {
-                if ((d.getMicrochip().equals(micro))) {
 
+                if ((d.getMicrochip().equals(micro))) {
                     NationalDogRegister.remove(d);
-                    saveRegister(NationalDogRegister, tipo);
-                    String canc = "REMOVE_N_OK";
+                     canc = "REMOVE_N_OK";
                     return canc;
                 }
             }
         }
 
-        if (tipo == 2) {
+        if (i == 2) {
+            last_modification = new Date().toString();
             for (Dog d : LostDogRegister) {
                 if ((d.getMicrochip().equals(micro))) {
                     LostDogRegister.remove(d);
-                    saveRegister(LostDogRegister, tipo);
-                    String canc = "REMOVE_L_OK";
+                     canc = "REMOVE_L_OK";
                     return canc;
                 }
             }
         }
 
-        if (tipo == 3) {
+        if (i == 3) {
+            last_modification = new Date().toString();
             for (Dog d : StrayDogRegister) {
                 if ((d.getMicrochip().equals(micro))) {
                     StrayDogRegister.remove(d);
-                    saveRegister(StrayDogRegister, tipo);
-                    String canc = "REMOVE_S_OK";
+                   canc = "REMOVE_S_OK";
                     return canc;
                 }
             }
         }
-        String canc = "REMOVE_ERROR";
+        canc = "REMOVE_ERROR";
         return canc;
     }
 
@@ -109,30 +106,6 @@ public class Register implements Serializable {
         s_reg.addAll(StrayDogRegister);
         return s_reg;
     }
-
-
-    public void saveRegister(ArrayList Register, int i){
-        try{
-            if(i==1) {
-                var oos = new ObjectOutputStream((new FileOutputStream("NationalDogRegister.ser")));
-                oos.writeObject(Register);
-                oos.close();
-            }else if(i==2){
-                var oos = new ObjectOutputStream((new FileOutputStream("LostDogRegister.ser")));
-                oos.writeObject(Register);
-                oos.close();
-
-            }else if(i==3){
-                var oos = new ObjectOutputStream((new FileOutputStream("StrayDogRegister.ser")));
-                oos.writeObject(Register);
-                oos.close();
-            }
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
 
 
 

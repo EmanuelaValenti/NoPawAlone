@@ -7,11 +7,12 @@ public class NoPawAloneServer {
 
     ServerSocket socket;
     Socket client_socket;
+    private int port;
+    int client_id = 0;
+
     Register NewDogRegister = new Register();
     Register LostDogRegister = new Register();
     Register StrayDogRegister = new Register();
-    private int port;
-    int client_id = 0;
 
 
     public static void main(String args[]) {

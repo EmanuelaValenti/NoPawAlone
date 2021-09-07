@@ -3,6 +3,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.net.UnknownHostException;
 
 
 /*Come prima cosa, per far partire il programma, vengono inseriti indirizzo e porta necessari per far partire un socket
@@ -33,7 +37,8 @@ public class NoPawAloneClient {
 
     public void start() {
         System.out.println("Starting client connection to "+address+": "+port);
-
+    /*Inizio la creazione del socket e parto creando gli scanner ed i printwriter
+    * per la comunicazione tra client e client manager*/
         try {
             socket = new Socket(address, port);
             System.out.println("Started client connection to " + address + ":" + port);
@@ -53,7 +58,7 @@ public class NoPawAloneClient {
             String msg_to_send;
             String msg_received;
 
-            boolean go = true;
+            boolean go = true; /*Per la stampa del menù*/
             int choice;
 
             while (go) {
@@ -71,7 +76,7 @@ public class NoPawAloneClient {
                 System.out.println("7. Print the National Dog Register");
                 System.out.println("8. Print the Lost Dog Register");
                 System.out.println("9. Print the Stray dog register");
-                System.out.println("0. Quit");
+                System.out.println("0. Save and Quit");
                 System.out.println("");
                 System.out.println("*******************************************************************");
                 System.out.print("Enter choice -> ");
@@ -423,6 +428,53 @@ public class NoPawAloneClient {
                         break;
 
                     case 0:
+                        /*Salvo tutto e chiudo*/
+                        msg_to_send = "SAVE_N";
+                        System.out.println("DEBUG: Sending " + msg_to_send);
+                        pw.println(msg_to_send);
+                        pw.flush();
+
+                        msg_received = server_scanner.nextLine();
+                        if (msg_received.equals("SAVE_N_OK")) {
+                            System.out.println("NationalDogRegister save correctly");
+                        }else if(msg_received.equals("SAVE_ERROR")){
+                            System.out.println("Error saving file");
+                        }else {
+                                System.out.println("Unknown message: " + msg_received);
+                        }
+
+                        msg_to_send = "SAVE_L";
+                        System.out.println("DEBUG: Sending " + msg_to_send);
+                        pw.println(msg_to_send);
+                        pw.flush();
+
+                        msg_received = server_scanner.nextLine();
+                        if (msg_received.equals("SAVE_L_OK")) {
+                            System.out.println("LostDogRegister save correctly");
+                        }else if(msg_received.equals("SAVE_ERROR")){
+                            System.out.println("Error saving file");
+                        }else {
+                            System.out.println("Unknown message: " + msg_received);
+                        }
+
+
+                        msg_to_send = "SAVE_S";
+                        System.out.println("DEBUG: Sending " + msg_to_send);
+                        pw.println(msg_to_send);
+                        pw.flush();
+
+                        msg_received = server_scanner.nextLine();
+                        if (msg_received.equals("SAVE_S_OK")) {
+                            System.out.println("StrayDogRegister save correctly");
+                        }else if(msg_received.equals("SAVE_ERROR")){
+                            System.out.println("Error saving file");
+                        }else {
+                            System.out.println("Unknown message: " + msg_received);
+                        }
+
+
+
+
                         go = false;
                         System.out.println("Quitting Client...");
                         msg_to_send = "QUIT";

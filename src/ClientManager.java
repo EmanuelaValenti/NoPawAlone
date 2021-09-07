@@ -36,6 +36,44 @@ public class ClientManager implements Runnable{
             e.printStackTrace();
         }
 
+        ObjectInputStream nd;
+        try{
+            nd = new ObjectInputStream(new FileInputStream("NationalDogRegister.ser"));
+            NationalDogRegister = (Register) nd.readObject();
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+        ObjectInputStream ld;
+        try{
+            ld = new ObjectInputStream(new FileInputStream("LostDogRegister.ser"));
+            LostDogRegister = (Register) ld.readObject();
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+        ObjectInputStream sd;
+        try{
+            sd = new ObjectInputStream(new FileInputStream("StrayDogRegister.ser"));
+            StrayDogRegister = (Register) sd.readObject();
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+
 
         boolean go = true;
 
@@ -213,6 +251,57 @@ public class ClientManager implements Runnable{
                 }
                 go = false;
             }
+
+            else if (cmd.equals("SAVE_N")){
+                try{
+                    var nos = new ObjectOutputStream(new FileOutputStream("NationalDogRegister.ser"));
+                    nos.writeObject(NationalDogRegister);
+                    nos.close();
+                    pw.println("SAVE_N_OK");
+                    pw.flush();;
+                    System.out.println("SERVER LOG: list saved correctly");
+                }
+                catch (IOException e){
+                    pw.println("SAVE_ERROR");
+                    pw.flush();
+                    e.printStackTrace();
+                }}
+
+
+            else if (cmd.equals("SAVE_L")){
+                try{
+                    var los = new ObjectOutputStream(new FileOutputStream("LostDogRegister.ser"));
+                    los.writeObject(LostDogRegister);
+                    los.close();
+                    pw.println("SAVE_L_OK");
+                    pw.flush();
+                    System.out.println("SERVER LOG: list saved correctly");
+                }
+                catch (IOException e){
+                    pw.println("SAVE_ERROR");
+                    pw.flush();
+                    e.printStackTrace();
+                }
+            }
+
+             else if (cmd.equals("SAVE_S")){
+                try{
+                    var sos = new ObjectOutputStream(new FileOutputStream("StrayDogRegister.ser"));
+                    sos.writeObject(StrayDogRegister);
+                    sos.close();
+                    pw.println("SAVE_S_OK");
+                    pw.flush();;
+                    System.out.println("SERVER LOG: list saved correctly");
+                }
+                catch (IOException e){
+                    pw.println("SAVE_ERROR");
+                    pw.flush();
+                    e.printStackTrace();
+                }
+
+            }
+
+
             else {
                 System.out.println("Unknown command" + message);
                 pw.println("ERROR_CMD");
