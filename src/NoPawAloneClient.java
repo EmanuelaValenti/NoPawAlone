@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 
 /*Come prima cosa, per far partire il programma, vengono inseriti indirizzo e porta necessari per far partire un socket
-che verrà assegnato al client, con il supporto del ClientManager. */
+che verrà assegnato al client, con il supporto del ClientManager.*/
 
 public class NoPawAloneClient {
 
