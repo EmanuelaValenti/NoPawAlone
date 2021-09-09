@@ -4,7 +4,7 @@ import java.net.Socket;
 
 
 public class NoPawAloneServer {
-
+/*Definiamo il Server socket, il client socket, la porta usata per la connessione ed il client_id.*/
     ServerSocket socket;
     Socket client_socket;
     private int port;

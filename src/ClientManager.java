@@ -3,8 +3,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/*Il Client Manager funge da intermediario tra il client ed il server, occupandosi dei messaggi protocoolari che
+* vengono scambiati. */
 
 public class ClientManager implements Runnable{
+
+    /*Essendo runnable, il Client Manager è implementato come se fosse un thread infatti ritroveremo il metono run().*/
+
 
     private Socket client_socket;
     private Register NationalDogRegister;
@@ -67,14 +72,6 @@ public class ClientManager implements Runnable{
         }
 
 
-
-
-
-
-
-
-
-
         boolean go = true;
 
         while(go) {
@@ -90,10 +87,10 @@ public class ClientManager implements Runnable{
                 String surnameOwner = msg_scanner.next();
                 String phone = msg_scanner.next();
                 String nameDog = msg_scanner.next();
-                String race = msg_scanner.next();
+                String breed = msg_scanner.next();
                 String microchip = msg_scanner.next();
                 int weight = msg_scanner.nextInt();
-                Dog d = new Dog (nameOwner, surnameOwner, phone, nameDog, race, microchip, weight);
+                Dog d = new Dog (nameOwner, surnameOwner, phone, nameDog, breed, microchip, weight);
                 NationalDogRegister.addNewDog(d);
                 System.out.println("SERVER LOG: Added "+ d);
                 pw.println("ADD_NEW_OK");
@@ -120,10 +117,10 @@ public class ClientManager implements Runnable{
                 String surnameOwner = msg_scanner.next();
                 String phone = msg_scanner.next();
                 String nameDog = msg_scanner.next();
-                String race = msg_scanner.next();
+                String breed = msg_scanner.next();
                 String microchip = msg_scanner.next();
                 int weight = msg_scanner.nextInt();
-                Dog d = new Dog (nameOwner, surnameOwner, phone, nameDog, race, microchip, weight);
+                Dog d = new Dog (nameOwner, surnameOwner, phone, nameDog, breed, microchip, weight);
                 StrayDogRegister.addStrayDog(d);
                 System.out.println("SERVER LOG: Added "+ d);
                 pw.println("ADD_STRAY_OK");
@@ -142,10 +139,10 @@ public class ClientManager implements Runnable{
                 String surnameOwner = msg_scanner.next();
                 String phone = msg_scanner.next();
                 String nameDog = msg_scanner.next();
-                String race = msg_scanner.next();
+                String breed = msg_scanner.next();
                 String lostMicro = msg_scanner.next();
                 int weight = msg_scanner.nextInt();
-                Dog d = new Dog (nameOwner, surnameOwner, phone, nameDog, race, lostMicro, weight);
+                Dog d = new Dog (nameOwner, surnameOwner, phone, nameDog, breed, lostMicro, weight);
                 LostDogRegister.addLostDog(d);
                 System.out.println("SERVER LOG: Added "+ d);
                 pw.println("LOST_DOG_COPY");
@@ -241,16 +238,6 @@ public class ClientManager implements Runnable{
                 pw.flush();
             }
 
-            else if (cmd.equals("QUIT")){
-                /*Dovrebbe essere OK*/
-                System.out.println("Server: Closing connection to "+client_socket.getRemoteSocketAddress());
-                try {
-                    client_socket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                go = false;
-            }
 
             else if (cmd.equals("SAVE_N")){
                 try{
@@ -299,6 +286,17 @@ public class ClientManager implements Runnable{
                     e.printStackTrace();
                 }
 
+            }
+
+
+            else if (cmd.equals("QUIT")){
+                System.out.println("Server: Closing connection to "+client_socket.getRemoteSocketAddress());
+                try {
+                    client_socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                go = false;
             }
 
 

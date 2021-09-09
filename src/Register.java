@@ -119,7 +119,7 @@ public class Register implements Serializable {
             s = s + "SURNNAME OWNER " +d.getSurnameOwner();
             s = s + "PHONE " +d.getPhone();
             s = s + "NAME DOG " +d.getNameDog();
-            s = s + "RACE " +d.getRace();
+            s = s + "BREED " +d.getBreed();
             s = s + "MICROCHIP " +d.getMicrochip();
             s = s + "WEIGHT " +d.getWeight();
         }

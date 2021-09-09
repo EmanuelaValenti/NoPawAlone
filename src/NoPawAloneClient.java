@@ -10,7 +10,7 @@ import java.net.UnknownHostException;
 
 
 /*Come prima cosa, per far partire il programma, vengono inseriti indirizzo e porta necessari per far partire un socket
-che verrà assegnato al client, con il supporto del ClientManager.*/
+che verra' assegnato al client, con il supporto del ClientManager.*/
 
 public class NoPawAloneClient {
 
@@ -46,15 +46,13 @@ public class NoPawAloneClient {
             // Usato per inviare comunicazioni al server
             PrintWriter pw = new PrintWriter(socket.getOutputStream());
 
-            // Usato per le comunicazioni del server
+            // Usato per le comunicazioni protocollari, permette di leggere i messaggi provenienti dal Client Manager
             Scanner server_scanner = new Scanner(socket.getInputStream());
 
             // Usato per leggere gli input dell'utente.
             Scanner user_scanner = new Scanner(System.in);
 
-            /*Il PrintWriter e gli scanner saranno utilizzati per le comunicazioni tra il client ed il client manager e
-             * e questo motivo vengono utilizzate anche le seguenti due stringhe:*/
-
+            /*Stringhe usate nella comunicazione protocollare*/
             String msg_to_send;
             String msg_received;
 
@@ -76,7 +74,8 @@ public class NoPawAloneClient {
                 System.out.println("7. Print the National Dog Register");
                 System.out.println("8. Print the Lost Dog Register");
                 System.out.println("9. Print the Stray dog register");
-                System.out.println("0. Save and Quit");
+                System.out.println("10. Save");
+                System.out.println("0. Quit");
                 System.out.println("");
                 System.out.println("*******************************************************************");
                 System.out.print("Enter choice -> ");
@@ -84,8 +83,7 @@ public class NoPawAloneClient {
 
                 switch (choice) {
                     case 1:
-                        /*Inserisci nuovo cane*/
-
+                        /*Inserisci un nuovo cane*/
                         System.out.print("Enter the owner's name:");
                         String nameowner = user_scanner.next();
                         System.out.print("Enter the owner's surname:");
@@ -95,14 +93,14 @@ public class NoPawAloneClient {
                         System.out.print("Enter the dog's name:");
                         String namedog = user_scanner.next();
                         System.out.print("Enter the breed of the dog:");
-                        String race = user_scanner.next();
+                        String breed = user_scanner.next();
                         String microchip = MicrochipGenerator.getRandomString(15);
                         System.out.println("The microchip assigned to this dog is: " + microchip);
                         System.out.print("Enter the weight of the dog:");
                         int weight = user_scanner.nextInt();
 
                         msg_to_send = "ADD_NEW_DOG" + " " + nameowner + " " + surnameowner + " "
-                                + phone + " " + namedog + " " + race + " " + microchip + " " + weight;
+                                + phone + " " + namedog + " " + breed + " " + microchip + " " + weight;
                         System.out.println("DEBUG: Sending " + msg_to_send);
                         pw.println(msg_to_send);
                         pw.flush();
@@ -162,14 +160,14 @@ public class NoPawAloneClient {
                         System.out.print("Enter the dog's name:");
                         String nameDog1 = user_scanner.next();
                         System.out.print("Enter the breed of the dog:");
-                        String race1 = user_scanner.next();
+                        String breed1 = user_scanner.next();
                         String microchip1 = MicrochipGenerator.getRandomString(15);
                         System.out.println("The microchip assigned to this dog is: " + microchip1);
                         System.out.print("Enter weight of the dog:");
                         int weight1 = user_scanner.nextInt();
 
                         msg_to_send = "ADD_STRAY_DOG " + " " + nameOwner1 + " " + surnameOwner1 + " "
-                                + phone1 + " " + nameDog1 + " " + race1 + " " + microchip1 + " " + weight1;
+                                + phone1 + " " + nameDog1 + " " + breed1 + " " + microchip1 + " " + weight1;
                         System.out.println("DEBUG: Sending " + msg_to_send);
                         pw.println(msg_to_send);
                         pw.flush();
@@ -182,7 +180,6 @@ public class NoPawAloneClient {
                         } else {
                             System.out.println("ERROR: unkown message->" + msg_received);
                         }
-
 
                         break;
 
@@ -210,14 +207,14 @@ public class NoPawAloneClient {
                             System.out.print("Enter the dog's name:");
                             String nameDog2 = user_scanner.next();
                             System.out.print("Enter the breed of the dog:");
-                            String race2 = user_scanner.next();
+                            String breed2 = user_scanner.next();
                             System.out.println("The dog's microchip is: " + lostMicro);
                             System.out.print("Enter weight:");
                             int weight2 = user_scanner.nextInt();
 
 
                             msg_to_send = "FOUND_LOST" + " " + nameOwner2 + " " + surnameOwner2 + " "
-                                    + phone2 + " " + nameDog2 + " " + race2 + " " + lostMicro + " " + weight2;
+                                    + phone2 + " " + nameDog2 + " " + breed2 + " " + lostMicro + " " + weight2;
 
                             System.out.println("DEBUG: Sending " + msg_to_send);
                             pw.println(msg_to_send);
@@ -287,13 +284,13 @@ public class NoPawAloneClient {
                         System.out.print("Enter the dog's name:");
                         String nameDog2 = user_scanner.next();
                         System.out.print("Enter the breed of the dog:");
-                        String race2 = user_scanner.next();
+                        String breed2 = user_scanner.next();
                         System.out.println("The dog's microchip is: " + microadopt);
                         System.out.print("Enter weight:");
                         int weight2 = user_scanner.nextInt();
 
                         msg_to_send = "ADD_NEW_DOG" + " " + nameOwner2 + " " + surnameOwner2 + " "
-                                + phone2 + " " + nameDog2 + " " + race2 + " " + microadopt + " " + weight2;
+                                + phone2 + " " + nameDog2 + " " + breed2 + " " + microadopt + " " + weight2;
                         System.out.println("DEBUG: Sending "+msg_to_send);
                         pw.println(msg_to_send);
                         pw.flush();
@@ -309,9 +306,6 @@ public class NoPawAloneClient {
                         else {
                             System.out.println("ERROR: unkown message-> "+msg_received);
                         }
-
-
-
 
                         break;
 
@@ -427,8 +421,8 @@ public class NoPawAloneClient {
 
                         break;
 
-                    case 0:
-                        /*Salvo tutto e chiudo*/
+                    case 10:
+                        /*Salvo tutto*/
                         msg_to_send = "SAVE_N";
                         System.out.println("DEBUG: Sending " + msg_to_send);
                         pw.println(msg_to_send);
@@ -472,15 +466,18 @@ public class NoPawAloneClient {
                             System.out.println("Unknown message: " + msg_received);
                         }
 
+                        break;
 
 
-
+                    case 0:
+                        /*Chiudo*/
                         go = false;
                         System.out.println("Quitting Client...");
                         msg_to_send = "QUIT";
                         pw.println(msg_to_send);
                         pw.flush();
                         break;
+
 
                     default:
                         System.out.println("Choise "+ choice + "not valid!");

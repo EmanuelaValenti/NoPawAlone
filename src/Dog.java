@@ -6,16 +6,16 @@ public class Dog implements Serializable{
     private String SurnameOwner;
     private String Phone;
     private String NameDog;
-    private String Race;
+    private String Breed;
     private String Microchip;
     private int Weight;
 
-    public Dog(String nameOwner, String surnameOwner, String phone, String nameDog, String race, String microchip, int weight){
+    public Dog(String nameOwner, String surnameOwner, String phone, String nameDog, String breed, String microchip, int weight){
         NameOwner = nameOwner;
         SurnameOwner = surnameOwner;
         Phone = phone;
         NameDog = nameDog;
-        Race = race;
+        Breed = breed;
         Microchip = microchip;
         this.Weight = weight;
     }
@@ -35,8 +35,8 @@ public class Dog implements Serializable{
     public String getNameDog() {return NameDog; }
     public void setNameDog(String namedog) {this.NameDog = namedog; }
 
-    public String getRace() {return Race; }
-    public void setRace(String race) {this.Race = race; }
+    public String getBreed() {return Breed; }
+    public void setBreed(String breed) {this.Breed = breed; }
 
     public String getMicrochip() { return Microchip;    }
     public void setMicrochip(String microchip) {
@@ -53,7 +53,7 @@ public class Dog implements Serializable{
                 ", Surname Owner=" + SurnameOwner +
                 ", Phone=" + Phone +
                 ", Name Dog=" + NameDog +
-                ", Race=" + Race +
+                ", Breed=" + Breed +
                 ", Microchip=" + Microchip +
                 ", Weight=" + Weight + "Kg " +
                 "}";
